@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cuestionarios Moodle</title>
-    <link rel="stylesheet" href="css/simple.css">
+    <link rel="stylesheet" href="css/simple.css" />
   </head>
   <body>
     <h1>Cuestionarios para la moodle</h1>
@@ -29,8 +29,30 @@
       estrictamente necesario usarlos, se usará el caracter \
       <u>automáticamente</u> para <br />
       quitarles el significado especial. Por ejemplo, A = B + C ⇨ A \= B + C.
+      <br /><br />
     </div>
-    <div></div>
-    <div></div>
+
+    <div id="formulario">
+      <form>
+        <label for="pregunta">Introduzca la pregunta: </label><br />
+        <input type="text" name="pregunta" id="pregunta" /><br />
+        <label for="rCorrecta">Respuesta correcta: </label><br />
+        <input type="text" name="rCorrecta" id="rCorrecta" /><br>
+        <label for="rIncorrecta1">Respuesta incorrecta 1: </label><br />
+        <input type="text" name="rIncorrecta1" id="rIncorrecta1" /><br>
+        <label for="rIncorrecta2">Respuesta incorrecta 2: </label><br />
+        <input type="text" name="rIncorrecta2" id="rIncorrecta2" /><br>
+        <label for="rIncorrecta3">Respuesta incorrecta 3: </label><br />
+        <input type="text" name="rIncorrecta3" id="rIncorrecta3" />
+        <br>
+        <button type="button" id="addPreguntas">Crear Pregunta</button>
+        <button type="button" id="genArchivo">Generar Archivo</button>
+        <button type="button" id="delPreguntas">Borrar Preguntas</button>
+        <button type="button" id="savePreguntas">Guardar Pregunta</button>
+     </form>
+    </div>
+    <div id="divPreguntas">
+
+    </div>
   </body>
 </html>
