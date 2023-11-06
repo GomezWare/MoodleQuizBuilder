@@ -1,24 +1,53 @@
 "use strict";
-//OBJETOS
 
-let cuestionario = {
+let Cuestionario = {
   preguntas: [],
-  addPregunta(Pregunta) {
-    this.preguntas.push(Pregunta);
+  addPregunta: function (oPregunta) {
+    //TODO Funcion añadir pregunta
   },
+  descartarPregunta(id) {
+    //TODO Funcion descartar pregunta
+  },
+  preguntaToHTMLDiv(id) {
+    for (let i = 0; i < this.preguntas.length; i++) {
+      if (this.preguntas[i].id === id) {
+        let oPregunta = this.preguntas[i];
+      }
+    }
 
-  /*TODO Buscar la manera de meter este objeto en el localstorage, quizas se pueda con un JSON Stringify y 
-  luego recuperar el propio objeto y sub-ojetos(array) con un JSON to Object???
-   */
+    elementoDIV = `<div id="${id}"> `;
+    elementoDIV += `${oPregunta.toHTMLUL()}`;
+    elementoDIV += `<button onclick="Cuestionario.descartarPregunta(${id})">Descartar pregunta</button>`;
+    elementoDIV += `<button onclick="recuperarPregunta(${id})">Recuperar pregunta</button>`;
+
+    elementoDIV += `</div>`;
+
+    return elementoDIV;
+  },
+  getPregunta(i) {
+    let oPregunta = this.preguntas[i];
+
+    return oPregunta;
+  },
 };
 
-function Pregunta(nombre, rCorrecta, rIncorrecta1, rIncorrecta2, rIncorrecta3) {
-  this.nombre = nombre;
-  this.rCorrecta = rCorrecta;
-  this.rIncorrecta1 = rIncorrecta1;
-  this.rIncorrecta2 = rIncorrecta2;
-  this.rIncorrecta3 = rIncorrecta3;
+function Pregunta(id, texto, respuestaCorrecta, respuestasIncorrecta) {
+  this.id = id;
+  this.texto = texto;
+  this.respuestaCorrecta = respuestaCorrecta;
+  this.respuestasIncorrecta = respuestasIncorrecta;
 
-  //TODO Esto tiene que devolver un DIV con los datos de arriba
-  this.preguntaToHTMLDiv = function () {};
+  this.toHTMLUL = function () {
+    //TODO Funcion añadir pregunta
+    let elementoUL = `<ul>`;
+    elementoUL += `<li>${this.texto}</li>`;
+    elementoUL += `<li>${this.respuestaCorrecta}</li>`;
+
+    this.respuestasIncorrecta.forEach((incorrecta) => {
+      elementoUL += `<li>${incorrecta}</li>`;
+    });
+
+    elementoUL += `</ul>`;
+    return elementoUL;
+  };
 }
