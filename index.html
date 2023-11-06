@@ -38,7 +38,7 @@
     <div id="formulario">
       <form>
         <label for="nombre">Introduzca la pregunta: </label><br />
-        <input type="text" name="nombre" id="nombre" /><br />
+        <textarea name="nombre" id="nombre" rows="4" cols="50"></textarea><br />
         <label for="rCorrecta">Respuesta correcta: </label><br />
         <input type="text" name="rCorrecta" id="rCorrecta" /><br />
         <label for="rIncorrecta1">Respuesta incorrecta 1: </label><br />
@@ -50,8 +50,12 @@
         <br />
         <button type="button" id="addPregunta">Crear Pregunta</button>
         <button type="button" id="genArchivo">Generar Archivo</button>
-        <button type="button" id="delPregunta">Borrar Preguntas</button>
-        <button type="button" id="savePregunta">Guardar Pregunta</button>
+        <button type="button" id="delPreguntas">
+          Borrar todas las preguntas
+        </button>
+        <button type="button" id="savePreguntas">
+          Guardar todas las Pregunta
+        </button>
       </form>
     </div>
     <div id="divPreguntas"></div>
