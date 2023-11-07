@@ -12,24 +12,20 @@ let Cuestionario = {
   },
   descartarPregunta(id) {
     /*descartarPregunta, recibe una id como parametro de entrada y busca en el array
-    la pregunta que coincida con dicho id, y la recupera */
-    let index = "error";
+    la pregunta que coincida con dicho id, y recupera el indice*/
+    var index = "error";
 
     for (let i = 0; i < this.preguntas.length; i++) {
       let p = this.preguntas[i];
 
       if (p.id == id) {
-        index = id;
+        index = i;
+        break;
       }
     }
 
-    /*Si es la unica pregunta que queda, esta no se descartara*/
-    if (this.preguntas.length == 1) {
-      alert("Todavía no hay preguntas creadas");
-    } else {
-      this.preguntas.splice(index, 1); // Aqui se utiliza la funciom Splice para no dejar huecos
-      mostrarPreguntas(); // Se muestra la lista de preguntas actualizada
-    }
+      this.preguntas.splice(index, 1); // Aqui se utiliza la funcion Splice para no dejar huecos
+      mostrarPreguntas(); // Se muestra la lista de preguntas actualizadas
   },
   preguntaToHTMLDiv(id) {
     /*Muy parecido al metodo de arriba, recibe un id, busca en el array la pregunta correspondiente 

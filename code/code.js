@@ -31,7 +31,8 @@ btnGenArchivo.addEventListener("click", generarArchivo);
 
 function arranque() {
   /*Cuando carga la pagina web  */
-  if (!localStorage.getItem("Cuestionario") == "") { //Si no existe el localStorage, se crea y se muestra una alerta
+  if (!localStorage.getItem("Cuestionario") == "") {
+    //Si no existe el localStorage, se crea y se muestra una alerta
     let preguntas = localStorage.getItem("Cuestionario");
     /*Se parsea del localStorage el array de Preguntas el objeto cuestionario, sin metodos por ser un JSON*/
     preguntas = JSON.parse(preguntas);
@@ -52,11 +53,11 @@ function arranque() {
     });
     Cuestionario.preguntas = preguntas; //Finalmente se introduce de nuevo en el Cuestionario
 
-    contadorIDs = localStorage.getItem('contadorSav'); //Se recupera tambien el contador para poder seguir generando preguntas
-    mostrarPreguntas();
+    contadorIDs = localStorage.getItem("contadorSav"); //Se recupera tambien el contador para poder seguir generando preguntas
+    mostrarPreguntas(); //Se actualiza la division
   } else {
-    alert("Todavía no hay preguntas creada");
     localStorage.setItem("Cuestionario", "");
+    mostrarPreguntas();
     //Se crea el Cuestionario en objetos.js
   }
 }
@@ -97,13 +98,14 @@ function savePreguntas() {
 }
 
 function delPreguntas() {
-  localStorage.setItem("Cuestionario", "");
-  Cuestionario.preguntas = [];
-  mostrarPreguntas();
+  /*Esta funcion borra todas las preguntas */
+  localStorage.setItem("Cuestionario", ""); //Se borra el localStorage
+  Cuestionario.preguntas = []; // Se borra el cuestionario
+  mostrarPreguntas(); //Se actualiza la pantalla
+  contadorIDs = 0; // Se resetea el contador de IDs
 }
 
 function guardarPregunta() {
-
   //Se recuperan los datos de los inputs y se borran los espacios para que no haya accidentes con espacios
 
   let texto = String(document.querySelector("#texto").value).trim();
@@ -133,7 +135,7 @@ function guardarPregunta() {
 
     Cuestionario.addPregunta(oPregunta); // Se añade al cuestionario
 
-    mostrarPreguntas();
+    mostrarPreguntas(); //Se muestran las preguntas
   }
 }
 
@@ -142,7 +144,7 @@ function recuperarPregunta(id) {
   const index = Cuestionario.preguntas.findIndex((p) => p.id === id);
   let pRecuperada = Cuestionario.getPregunta(index); //Se utiliza el metodo getPregunta para poder recuperar la pregunta
 
-  //Se devulve el contenido de la pregunta a los inputs pero descapeado
+  //Se deveulve el contenido de la pregunta a los inputs pero descapeado
   document.querySelector("#texto").value = descapear(pRecuperada.texto);
   document.querySelector("#rC").value = descapear(pRecuperada.rC);
   document.querySelector("#rI1").value = descapear(pRecuperada.rI[0]);
@@ -154,16 +156,19 @@ function recuperarPregunta(id) {
 //////
 
 function mostrarPreguntas() {
-  divPreguntas.innerHTML = "";
-  Cuestionario.preguntas.forEach((p) => {
-    divPreguntas.innerHTML += Cuestionario.preguntaToHTMLDiv(p.id);
-  });
+  if (Cuestionario.preguntas.length == 0) {
+    divPreguntas.innerHTML = "<h1>Todavía no hay preguntas creadas.</h1>";
+  }else{
+    divPreguntas.innerHTML = "";
+    Cuestionario.preguntas.forEach((p) => {
+      divPreguntas.innerHTML += Cuestionario.preguntaToHTMLDiv(p.id);
+    });
+  }
 }
 
 function validateInputs(texto, rC, rI1, rI2, rI3) {
   /*Esta funcion auxiliar se encarga de comprobar que todos los campos del formulario estan rellenos*/
   // Valida inputs y muestra errores//
-
 
   /*Se hace la comprobacion, edemas es aprueba de poner un solo espacio en el input  */
   if (
@@ -173,9 +178,12 @@ function validateInputs(texto, rC, rI1, rI2, rI3) {
     rI2.length == 0 ||
     rI3.length == 0
   ) {
+    /*Si no estan rellenos los campos se mostrara un error y se devolvera falso */
     divErrores.innerHTML = `<h1>Rellene todos los campos</h1>`;
     return false;
   } else {
+    /*Si todo es corracto se limpia el div de errores y se manda un true*/
+
     divErrores.innerHTML = "";
     return true;
   }
