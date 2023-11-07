@@ -63,14 +63,19 @@ function arranque() {
 }
 
 function generarArchivo() {
-  divErrores.innerHTML = "";
+  /*Este metodo es el encargado de general el archivo en formato .gift*/
+  divErrores.innerHTML = ""; //Primero se limpia la division errores
+
   if (!localStorage.getItem("Cuestionario") == "") {
+    // Se comprueba que haya preguntas en el localStorage
     let arrPreguntas = localStorage.getItem("Cuestionario");
+    // Se recuperan las preguntas y se meten en un array
     arrPreguntas = JSON.parse(arrPreguntas);
 
-    let arrContenido = [];
+    let arrContenido = []; //Se crea el array del contenido del fichero
 
     arrPreguntas.forEach((p) => {
+      /*Por cada pregunta se va esceibiendo el fichero con el formato especifico .gift incluyendo los caracteres escapeados y los saltos de linea*/
       arrContenido.push(`${p.texto} \n`);
       arrContenido.push(`{\n`);
       arrContenido.push(`"=... ${p.rC}\n`);
@@ -80,21 +85,26 @@ function generarArchivo() {
       arrContenido.push(`}\n`);
     });
 
-    let fichero = new File(arrContenido, { type: "text/plain; charset=UTF-8" });
-    var url = window.URL.createObjectURL(fichero);
-    let divURL = document.querySelector("#urlFichero");
 
+    let fichero = new File(arrContenido, { type: "text/plain; charset=UTF-8" }); //Se crea un fichero con codificacion UTF-8
+    var url = window.URL.createObjectURL(fichero); //Se crea la url con el obejeto fichero como parametro
+    let divURL = document.querySelector("#urlFichero"); //Se recupera la division del divURL
+
+    // Se añade el enlace para que el usuario pueda descargarlo
     divURL.innerHTML =
       '<a download="preguntas.txt" href="' +
       url +
       '">Descargar fichero (📄)</a>';
   } else {
-    divErrores.innerHTML = "<h1>No has guardado ninguna pregunta</h1>";
+    /*Si no se ha recuperado ninguna pregunta sale el mensaje de error*/
+    divErrores.innerHTML = "<h1>No has guardado ninguna pregunta</h1>"; 
   }
 }
 
 function savePreguntas() {
+  /*Este metodo guarda las preguntas y el contador en el localStorage*/
   localStorage.setItem("Cuestionario", JSON.stringify(Cuestionario.preguntas));
+  localStorage.setItem("contadorSav", contadorIDs);
 }
 
 function delPreguntas() {
@@ -156,9 +166,11 @@ function recuperarPregunta(id) {
 //////
 
 function mostrarPreguntas() {
+  /*Esta funcion pinta el Div generado por el metodo de Cuestionario*/
   if (Cuestionario.preguntas.length == 0) {
+    //Si no hay elementos en el array mostrara el siguiente mensaje
     divPreguntas.innerHTML = "<h1>Todavía no hay preguntas creadas.</h1>";
-  }else{
+  } else {
     divPreguntas.innerHTML = "";
     Cuestionario.preguntas.forEach((p) => {
       divPreguntas.innerHTML += Cuestionario.preguntaToHTMLDiv(p.id);
@@ -191,22 +203,20 @@ function validateInputs(texto, rC, rI1, rI2, rI3) {
 
 function escapear(String) {
   /* Este metodo simplemente escapea el String que le pases*/
-  return String
-    .replaceAll("~", "/\~")
-    .replaceAll("#", "/\#")
-    .replaceAll("=", "/\=")
-    .replaceAll("}", "/\}")
-    .replaceAll("{", "/\{")
-    .replaceAll(":", "/\:");
+  return String.replaceAll("~", "/~")
+    .replaceAll("#", "/#")
+    .replaceAll("=", "/=")
+    .replaceAll("}", "/}")
+    .replaceAll("{", "/{")
+    .replaceAll(":", "/:");
 }
 
 function descapear(String) {
   /* Este metodo recibe un string escapeado y lo restaura*/
-  return String 
-    .replaceAll("/\~", "~")
-    .replaceAll("/\#", "#")
-    .replaceAll("/\=", "=")
-    .replaceAll("/\}", "}")
-    .replaceAll("/\{", "{")
-    .replaceAll("/\:", ":");
+  return String.replaceAll("/~", "~")
+    .replaceAll("/#", "#")
+    .replaceAll("/=", "=")
+    .replaceAll("/}", "}")
+    .replaceAll("/{", "{")
+    .replaceAll("/:", ":");
 }
