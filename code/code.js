@@ -29,24 +29,24 @@ btnGenArchivo.addEventListener("click", generarArchivo);
 
 function arranque() {
   if (!localStorage.getItem("Cuestionario") == "") {
-  let preguntas = localStorage.getItem("Cuestionario");
-  preguntas = JSON.parse(preguntas);
-  preguntas.forEach(p => {
-    p.toHTMLUL = function (){
-      let elementoUL = `<ul>`;
-    elementoUL += `<li>${this.texto}</li>`;
-    elementoUL += `<li>${this.rC}</li>`;
+    let preguntas = localStorage.getItem("Cuestionario");
+    preguntas = JSON.parse(preguntas);
+    preguntas.forEach((p) => {
+      p.toHTMLUL = function () {
+        let elementoUL = `<ul>`;
+        elementoUL += `<li>${this.texto}</li>`;
+        elementoUL += `<li>${this.rC}</li>`;
 
-    this.rI.forEach((inc) => {
-      elementoUL += `<li>${inc}</li>`;
+        this.rI.forEach((inc) => {
+          elementoUL += `<li>${inc}</li>`;
+        });
+
+        elementoUL += `</ul>`;
+        return elementoUL;
+      };
     });
-
-    elementoUL += `</ul>`;
-    return elementoUL;
-    };
-  });
-  Cuestionario.preguntas=preguntas;
-  mostrarPreguntas();
+    Cuestionario.preguntas = preguntas;
+    mostrarPreguntas();
   } else {
     alert("Todavía no hay preguntas creada");
     localStorage.setItem("Cuestionario", "");
@@ -54,13 +54,13 @@ function arranque() {
   }
 }
 
-function generarArchivo(){
+function generarArchivo() {
   let arrPreguntas = localStorage.getItem("Cuestionario");
   arrPreguntas = JSON.parse(arrPreguntas);
 
   let arrContenido = [];
 
-  arrPreguntas.forEach(p => {
+  arrPreguntas.forEach((p) => {
     arrContenido.push(`${p.texto} \n`);
     arrContenido.push(`{\n`);
     arrContenido.push(`"=... ${p.rC}\n`);
@@ -70,26 +70,30 @@ function generarArchivo(){
     arrContenido.push(`}\n`);
   });
 
-  let fichero = new File(arrContenido, { type: "text/plain; charset=UTF-8" })
+  let fichero = new File(arrContenido, { type: "text/plain; charset=UTF-8" });
   var url = window.URL.createObjectURL(fichero);
-  let divURL = document.querySelector('#urlFichero');
+  let divURL = document.querySelector("#urlFichero");
 
   let flechita = `<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-big-down-lines-filled" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
   <path d="M9 8l-.117 .007a1 1 0 0 0 -.883 .993v1.999l-2.586 .001a2 2 0 0 0 -1.414 3.414l6.586 6.586a2 2 0 0 0 2.828 0l6.586 -6.586a2 2 0 0 0 .434 -2.18l-.068 -.145a2 2 0 0 0 -1.78 -1.089l-2.586 -.001v-1.999a1 1 0 0 0 -1 -1h-6z" stroke-width="0" fill="currentColor" />
   <path d="M15 2a1 1 0 0 1 .117 1.993l-.117 .007h-6a1 1 0 0 1 -.117 -1.993l.117 -.007h6z" stroke-width="0" fill="currentColor" />
   <path d="M15 5a1 1 0 0 1 .117 1.993l-.117 .007h-6a1 1 0 0 1 -.117 -1.993l.117 -.007h6z" stroke-width="0" fill="currentColor" />
-</svg>`
+</svg>`;
 
-  divURL.innerHTML = '<a download="preguntas.txt" href="' + url + '">Descargar fichero ('+ flechita+')</a>';
+  divURL.innerHTML =
+    '<a download="preguntas.txt" href="' +
+    url +
+    '">Descargar fichero (' +
+    flechita +
+    ")</a>";
 
   console.log(arrPreguntas);
 }
 
 function savePreguntas() {
   localStorage.setItem("Cuestionario", JSON.stringify(Cuestionario.preguntas));
-};
-
+}
 
 function delPreguntas() {
   localStorage.setItem("Cuestionario", "");
@@ -165,23 +169,22 @@ function validateInputs(texto, rC, rI1, rI2, rI3) {
     return true;
   }
 }
-
 function escapear(String) {
   return String.trim()
-    .replace("~", "/\~")
-    .replace("#", "/\#")
-    .replace("=", "/\=")
-    .replace("}", "/\}")
-    .replace("{", "/\{")
-    .replace(":", "/\:");
+    .replaceAll("~", "/\~")
+    .replaceAll("#", "/\#")
+    .replaceAll("=", "/\=")
+    .replaceAll("}", "/\}")
+    .replaceAll("{", "/\{")
+    .replaceAll(":", "/\:");
 }
 
 function descapear(String) {
   return String.trim()
-    .replace("/\~", "~")
-    .replace("/\#", "#")
-    .replace("/\=", "=")
-    .replace("/\}", "}")
-    .replace("/\{", "{")
-    .replace("/\:", ":");
+    .replaceAll("/\~", "~")
+    .replaceAll("/\#", "#")
+    .replaceAll("/\=", "=")
+    .replaceAll("/\}", "}")
+    .replaceAll("/\{", "{")
+    .replaceAll("/\:", ":");
 }

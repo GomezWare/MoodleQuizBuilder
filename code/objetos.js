@@ -24,12 +24,11 @@ let Cuestionario = {
     }
   },
   preguntaToHTMLDiv(id) {
-    let oPregunta = null; 
+    let oPregunta = null;
     for (let i = 0; i < this.preguntas.length; i++) {
-     if (this.preguntas[i].id == id) {
-       oPregunta = this.preguntas[i];
-     }
-      
+      if (this.preguntas[i].id == id) {
+        oPregunta = this.preguntas[i];
+      }
     }
 
     let elementoDIV = `<div id="${id}"> `;
@@ -68,6 +67,3 @@ function Pregunta(id, texto, rC, rI) {
     return elementoUL;
   };
 }
-
-
-
