@@ -68,3 +68,6 @@ function Pregunta(id, texto, rC, rI) {
     return elementoUL;
   };
 }
+
+
+

@@ -27,7 +27,24 @@ btnDelPreguntas.addEventListener("click", delPreguntas);
 
 function arranque() {
   if (!localStorage.getItem("Cuestionario") == "") {
-  console.log("no hay metodos");
+  let preguntas = localStorage.getItem("Cuestionario");
+  preguntas = JSON.parse(preguntas);
+  preguntas.forEach(p => {
+    p.toHTMLUL = function (){
+      let elementoUL = `<ul>`;
+    elementoUL += `<li>${this.texto}</li>`;
+    elementoUL += `<li>${this.rC}</li>`;
+
+    this.rI.forEach((inc) => {
+      elementoUL += `<li>${inc}</li>`;
+    });
+
+    elementoUL += `</ul>`;
+    return elementoUL;
+    };
+  });
+  Cuestionario.preguntas=preguntas;
+  mostrarPreguntas();
   } else {
     alert("Todavía no hay preguntas creada");
     localStorage.setItem("Cuestionario", "");
@@ -36,8 +53,7 @@ function arranque() {
 }
 
 function savePreguntas() {
-
-
+  localStorage.setItem("Cuestionario", JSON.stringify(Cuestionario.preguntas));
 };
 
 
