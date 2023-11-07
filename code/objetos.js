@@ -3,23 +3,39 @@
 let Cuestionario = {
   preguntas: [],
   addPregunta: function (oPregunta) {
-    //TODO Funcion añadir pregunta
+    this.preguntas.push(oPregunta);
   },
   descartarPregunta(id) {
-    //TODO Funcion descartar pregunta
-  },
-  preguntaToHTMLDiv(id) {
+    let index = "error";
+
     for (let i = 0; i < this.preguntas.length; i++) {
-      if (this.preguntas[i].id === id) {
-        let oPregunta = this.preguntas[i];
+      let p = this.preguntas[i];
+
+      if (p.id == id) {
+        index = id;
       }
     }
 
-    elementoDIV = `<div id="${id}"> `;
-    elementoDIV += `${oPregunta.toHTMLUL()}`;
-    elementoDIV += `<button onclick="Cuestionario.descartarPregunta(${id})">Descartar pregunta</button>`;
-    elementoDIV += `<button onclick="recuperarPregunta(${id})">Recuperar pregunta</button>`;
+    if (this.preguntas.length == 1) {
+      alert("Todavía no hay preguntas creadas");
+    } else {
+      this.preguntas.splice(index, 1);
+      mostrarPreguntas();
+    }
+  },
+  preguntaToHTMLDiv(id) {
+    let oPregunta = null; 
+    for (let i = 0; i < this.preguntas.length; i++) {
+     if (this.preguntas[i].id == id) {
+       oPregunta = this.preguntas[i];
+     }
+      
+    }
 
+    let elementoDIV = `<div id="${id}"> `;
+    elementoDIV += `${oPregunta.toHTMLUL()}`;
+    elementoDIV += `<button onclick="Cuestionario.descartarPregunta(${oPregunta.id})">Descartar pregunta</button>`;
+    elementoDIV += `<button onclick="recuperarPregunta(${oPregunta.id})">Recuperar pregunta</button>`;
     elementoDIV += `</div>`;
 
     return elementoDIV;
@@ -31,20 +47,21 @@ let Cuestionario = {
   },
 };
 
-function Pregunta(id, texto, respuestaCorrecta, respuestasIncorrecta) {
+// Constructor de pregunta
+function Pregunta(id, texto, rC, rI) {
   this.id = id;
   this.texto = texto;
-  this.respuestaCorrecta = respuestaCorrecta;
-  this.respuestasIncorrecta = respuestasIncorrecta;
+  this.rC = rC;
+  this.rI = rI;
 
   this.toHTMLUL = function () {
     //TODO Funcion añadir pregunta
     let elementoUL = `<ul>`;
     elementoUL += `<li>${this.texto}</li>`;
-    elementoUL += `<li>${this.respuestaCorrecta}</li>`;
+    elementoUL += `<li>${this.rC}</li>`;
 
-    this.respuestasIncorrecta.forEach((incorrecta) => {
-      elementoUL += `<li>${incorrecta}</li>`;
+    this.rI.forEach((inc) => {
+      elementoUL += `<li>${inc}</li>`;
     });
 
     elementoUL += `</ul>`;

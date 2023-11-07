@@ -4,10 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cuestionarios Moodle</title>
-    <link rel="stylesheet" href="css/simple.css" />
-    <!--TODO Un css propio por si hay que adatar el formato de la pantalla-->
+    <!--TODO Un css propio por si hay que adaptar el formato de la pantalla-->
     <script src="code/objetos.js" defer></script>
-    <script src="code/codigo.js" defer></script>
+    <script src="code/code.js" defer></script>
+    <link rel="stylesheet" href="style.css">
   </head>
   <body>
     <h1>Cuestionarios para la moodle</h1>
@@ -34,21 +34,22 @@
       quitarles el significado especial. Por ejemplo, A = B + C ⇨ A \= B + C.
       <br /><br />
     </div>
-    <div id="divErrores"></div>
-    <div id="formulario">
+    <div id="divErrores">
+
+    </div>
       <form>
-        <label for="nombre">Introduzca la pregunta: </label><br />
-        <textarea name="nombre" id="nombre" rows="4" cols="50"></textarea><br />
+        <label for="texto">Introduzca la pregunta: </label><br />
+        <textarea name="texto" id="texto" rows="4" cols="50"></textarea><br />
         <label for="rCorrecta">Respuesta correcta: </label><br />
-        <input type="text" name="rCorrecta" id="rCorrecta" /><br />
+        <input type="text" name="rC" id="rC" /><br />
         <label for="rIncorrecta1">Respuesta incorrecta 1: </label><br />
-        <input type="text" name="rIncorrecta1" id="rIncorrecta1" /><br />
+        <input type="text" name="rI1" id="rI1" /><br />
         <label for="rIncorrecta2">Respuesta incorrecta 2: </label><br />
-        <input type="text" name="rIncorrecta2" id="rIncorrecta2" /><br />
+        <input type="text" name="rI2" id="rI2" /><br />
         <label for="rIncorrecta3">Respuesta incorrecta 3: </label><br />
-        <input type="text" name="rIncorrecta3" id="rIncorrecta3" />
-        <br />
-        <button type="button" id="addPregunta">Crear Pregunta</button>
+        <input type="text" name="rI3" id="rI3" />
+        <br /><br />
+        <button type="button" id="guardarPregunta">Crear Pregunta</button>
         <button type="button" id="genArchivo">Generar Archivo</button>
         <button type="button" id="delPreguntas">
           Borrar todas las preguntas
@@ -57,7 +58,8 @@
           Guardar todas las Pregunta
         </button>
       </form>
+    <div id="divPreguntas">
+      
     </div>
-    <div id="divPreguntas"></div>
   </body>
 </html>
