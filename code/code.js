@@ -1,17 +1,19 @@
 "use strict";
 // GLOBAL
 ////
-var divPreguntas = document.querySelector("#divPreguntas");
-var divErrores = document.querySelector("#divErrores");
-var contadorIDs = 0;
+var divPreguntas = document.querySelector("#divPreguntas"); //Esta es la variable global correspondiente al div donde iran las preguntas
+var divErrores = document.querySelector("#divErrores"); //Esta es la variable global donde se mostraran los errores
+var contadorIDs = 0; //Contador encargado de ir asignandole ids a las preguntas cuando se van generando
 
 //////////
 //MAIN //
 ////////
-arranque();
+arranque(); // Cada vez que carga la aplicacion web se ejecutara este metodo
 
 //EVENT LISTENERS
 /////
+
+/*Estos Event listener controlan los eventos onclick de los 4 botones situados en el formulario */
 let btnGuardarPregunta = document.querySelector("#guardarPregunta");
 btnGuardarPregunta.addEventListener("click", guardarPregunta);
 
@@ -28,10 +30,13 @@ btnGenArchivo.addEventListener("click", generarArchivo);
 ////////////
 
 function arranque() {
-  if (!localStorage.getItem("Cuestionario") == "") {
+  /*Cuando carga la pagina web  */
+  if (!localStorage.getItem("Cuestionario") == "") { //Si no existe el localStorage, se crea y se muestra una alerta
     let preguntas = localStorage.getItem("Cuestionario");
+    /*Se parsea del localStorage el array de Preguntas el objeto cuestionario, sin metodos por ser un JSON*/
     preguntas = JSON.parse(preguntas);
     preguntas.forEach((p) => {
+      /*Este bucle recorre el array recuperado y le introduce a cada pregunta su metodo otra vez */
       p.toHTMLUL = function () {
         let elementoUL = `<ul>`;
         elementoUL += `<li>${this.texto}</li>`;
@@ -45,17 +50,19 @@ function arranque() {
         return elementoUL;
       };
     });
-    Cuestionario.preguntas = preguntas;
+    Cuestionario.preguntas = preguntas; //Finalmente se introduce de nuevo en el Cuestionario
+
+    contadorIDs = localStorage.getItem('contadorSav'); //Se recupera tambien el contador para poder seguir generando preguntas
     mostrarPreguntas();
   } else {
     alert("Todavía no hay preguntas creada");
     localStorage.setItem("Cuestionario", "");
-    //Se crea el cuestionario en objetos.js
+    //Se crea el Cuestionario en objetos.js
   }
 }
 
 function generarArchivo() {
-  divErrores.innerHTML = '';
+  divErrores.innerHTML = "";
   if (!localStorage.getItem("Cuestionario") == "") {
     let arrPreguntas = localStorage.getItem("Cuestionario");
     arrPreguntas = JSON.parse(arrPreguntas);
@@ -77,9 +84,11 @@ function generarArchivo() {
     let divURL = document.querySelector("#urlFichero");
 
     divURL.innerHTML =
-    '<a download="preguntas.txt" href="' + url + '">Descargar fichero (📄)</a>';
-  }else{
-    divErrores.innerHTML = '<h1>No has guardado ninguna pregunta</h1>';
+      '<a download="preguntas.txt" href="' +
+      url +
+      '">Descargar fichero (📄)</a>';
+  } else {
+    divErrores.innerHTML = "<h1>No has guardado ninguna pregunta</h1>";
   }
 }
 
@@ -94,39 +103,46 @@ function delPreguntas() {
 }
 
 function guardarPregunta() {
-  let texto = String(document.querySelector("#texto").value);
 
-  let rC = String(document.querySelector("#rC").value);
+  //Se recuperan los datos de los inputs y se borran los espacios para que no haya accidentes con espacios
 
-  let rI1 = String(document.querySelector("#rI1").value);
+  let texto = String(document.querySelector("#texto").value).trim();
 
-  let rI2 = String(document.querySelector("#rI2").value);
+  let rC = String(document.querySelector("#rC").value).trim();
 
-  let rI3 = String(document.querySelector("#rI3").value);
+  let rI1 = String(document.querySelector("#rI1").value).trim();
+
+  let rI2 = String(document.querySelector("#rI2").value).trim();
+
+  let rI3 = String(document.querySelector("#rI3").value).trim();
 
   if (validateInputs(texto, rC, rI1, rI2, rI3)) {
+    // Si la validacion es correcta se descapea
     texto = escapear(texto);
     rC = escapear(rC);
     rI1 = escapear(rI1);
     rI2 = escapear(rI2);
     rI3 = escapear(rI3);
 
-    let rI = [rI1, rI2, rI3];
+    let rI = [rI1, rI2, rI3]; // Aqui estaria el array de respuestas incorrectas
 
-    let id = contadorIDs;
-    contadorIDs++;
+    let id = contadorIDs; // Aqui se asignaria un id nuevo
+    contadorIDs++; // Se prepara un nuevo id
 
-    let oPregunta = new Pregunta(id, texto, rC, rI);
+    let oPregunta = new Pregunta(id, texto, rC, rI); //Se crea la pregunta
 
-    Cuestionario.addPregunta(oPregunta);
+    Cuestionario.addPregunta(oPregunta); // Se añade al cuestionario
 
     mostrarPreguntas();
   }
 }
 
 function recuperarPregunta(id) {
+  //Se obtiene el indice de la pregunta con el id introducido y se recupera
   const index = Cuestionario.preguntas.findIndex((p) => p.id === id);
-  let pRecuperada = Cuestionario.getPregunta(index);
+  let pRecuperada = Cuestionario.getPregunta(index); //Se utiliza el metodo getPregunta para poder recuperar la pregunta
+
+  //Se devulve el contenido de la pregunta a los inputs pero descapeado
   document.querySelector("#texto").value = descapear(pRecuperada.texto);
   document.querySelector("#rC").value = descapear(pRecuperada.rC);
   document.querySelector("#rI1").value = descapear(pRecuperada.rI[0]);
@@ -145,8 +161,11 @@ function mostrarPreguntas() {
 }
 
 function validateInputs(texto, rC, rI1, rI2, rI3) {
-  // Valida inputs y muestra errores
+  /*Esta funcion auxiliar se encarga de comprobar que todos los campos del formulario estan rellenos*/
+  // Valida inputs y muestra errores//
 
+
+  /*Se hace la comprobacion, edemas es aprueba de poner un solo espacio en el input  */
   if (
     texto.length == 0 ||
     rC.length == 0 ||
@@ -163,7 +182,8 @@ function validateInputs(texto, rC, rI1, rI2, rI3) {
 }
 
 function escapear(String) {
-  return String.trim()
+  /* Este metodo simplemente escapea el String que le pases*/
+  return String
     .replaceAll("~", "/\~")
     .replaceAll("#", "/\#")
     .replaceAll("=", "/\=")
@@ -173,7 +193,8 @@ function escapear(String) {
 }
 
 function descapear(String) {
-  return String.trim()
+  /* Este metodo recibe un string escapeado y lo restaura*/
+  return String 
     .replaceAll("/\~", "~")
     .replaceAll("/\#", "#")
     .replaceAll("/\=", "=")
