@@ -8,7 +8,7 @@ var contadorIDs = 0;
 //////////
 //MAIN //
 ////////
-// arranque();
+arranque();
 
 //EVENT LISTENERS
 /////
@@ -25,21 +25,21 @@ btnDelPreguntas.addEventListener("click", delPreguntas);
 //FUNCTION //
 ////////////
 
-// function arranque() {
-//   if (!localStorage.getItem("Cuestionario") == "") {
-//     let preguntasRecuperadas = localStorage.getItem("Cuestionario");
-//     Cuestionario.preguntas = JSON.parse(preguntasRecuperadas);
-//     mostrarPreguntas();
-//   } else {
-//     alert("Todavía no hay preguntas creada");
-//     localStorage.setItem("Cuestionario", "");
-//     //Se crea el cuestionario en objetos.js
-//   }
-// }
+function arranque() {
+  if (!localStorage.getItem("Cuestionario") == "") {
+  console.log("no hay metodos");
+  } else {
+    alert("Todavía no hay preguntas creada");
+    localStorage.setItem("Cuestionario", "");
+    //Se crea el cuestionario en objetos.js
+  }
+}
 
 function savePreguntas() {
-  localStorage.setItem("Cuestionario", JSON.stringify(Cuestionario.preguntas));
-}
+
+
+};
+
 
 function delPreguntas() {
   localStorage.setItem("Cuestionario", "");
@@ -79,8 +79,8 @@ function guardarPregunta() {
 }
 
 function recuperarPregunta(id) {
-  const pRecuperada = Cuestionario.preguntas.find((p) => p.id === id);
-
+  const index = Cuestionario.preguntas.findIndex((p) => p.id === id);
+  let pRecuperada = Cuestionario.getPregunta(index);
   document.querySelector("#texto").value = descapear(pRecuperada.texto);
   document.querySelector("#rC").value = descapear(pRecuperada.rC);
   document.querySelector("#rI1").value = descapear(pRecuperada.rI[0]);
