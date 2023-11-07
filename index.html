@@ -4,19 +4,20 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cuestionarios Moodle</title>
-    <!--TODO Un css propio por si hay que adaptar el formato de la pantalla-->
     <script src="code/objetos.js" defer></script>
     <script src="code/code.js" defer></script>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <h1>Cuestionarios para la moodle</h1>
+    <h1 class="titulo">Cuestionarios para la moodle</h1>
     <div id="advertencia">
       <b>Importante:</b> existen caracteres que no se pueden usar ni en las
       preguntas ni en las <br />respuestas, pues tienen un significado especial
       en el formato GIFT de las <br />
-      preguntas de Moodle (para más información visite la página del formato
-      GIFT).<br />
+      preguntas de Moodle (para más información visite la página del
+      <a target="_blank" href="https://docs.moodle.org/all/es/Formato_GIFT"
+        >formato GIFT</a
+      >).<br /><br />
       Los caracteres que hay que evitar son los siguientes: <br />
       <ul>
         <li>~</li>
@@ -34,34 +35,31 @@
       quitarles el significado especial. Por ejemplo, A = B + C ⇨ A \= B + C.
       <br /><br />
     </div>
-    <div id="divErrores">
-    </div>
-    <div id="urlFichero">
-
-    </div>
-      <form>
-        <label for="texto">Introduzca la pregunta: </label><br />
-        <textarea name="texto" id="texto" rows="4" cols="50"></textarea><br />
-        <label for="rCorrecta">Respuesta correcta: </label><br />
-        <input type="text" name="rC" id="rC" /><br />
-        <label for="rIncorrecta1">Respuesta incorrecta 1: </label><br />
-        <input type="text" name="rI1" id="rI1" /><br />
-        <label for="rIncorrecta2">Respuesta incorrecta 2: </label><br />
-        <input type="text" name="rI2" id="rI2" /><br />
-        <label for="rIncorrecta3">Respuesta incorrecta 3: </label><br />
-        <input type="text" name="rI3" id="rI3" />
-        <br /><br />
-        <button type="button" id="guardarPregunta">Crear Pregunta</button>
-        <button type="button" id="genArchivo">Generar Archivo</button>
-        <button type="button" id="delPreguntas">
-          Borrar todas las preguntas
-        </button>
-        <button type="button" id="savePreguntas">
-          Guardar todas las Pregunta
-        </button>
-      </form>
-    <div id="divPreguntas">
-      
-    </div>
+    <div id="divErrores"></div>
+    <div id="urlFichero"></div>
+    <form>
+      <label for="texto">Introduzca la pregunta: </label><br />
+      <textarea name="texto" id="texto" rows="4" cols="50"></textarea><br />
+      <label for="rCorrecta">Respuesta correcta: </label><br />
+      <input type="text" name="rC" id="rC" /><br />
+      <label for="rIncorrecta1">Respuesta incorrecta 1: </label><br />
+      <input type="text" name="rI1" id="rI1" /><br />
+      <label for="rIncorrecta2">Respuesta incorrecta 2: </label><br />
+      <input type="text" name="rI2" id="rI2" /><br />
+      <label for="rIncorrecta3">Respuesta incorrecta 3: </label><br />
+      <input type="text" name="rI3" id="rI3" />
+      <br /><br />
+      <button type="button" id="guardarPregunta">Crear Pregunta</button>
+      <button type="button" id="genArchivo">Generar Archivo</button>
+      <button type="button" id="delPreguntas">
+        Borrar todas las preguntas
+      </button>
+      <button type="button" id="savePreguntas">
+        Guardar todas las Pregunta
+      </button>
+      <br /><br /><br />
+    </form>
+    
+    <div id="divPreguntas"></div>
   </body>
 </html>

@@ -54,7 +54,6 @@ function Pregunta(id, texto, rC, rI) {
   this.rI = rI;
 
   this.toHTMLUL = function () {
-    //TODO Funcion añadir pregunta
     let elementoUL = `<ul>`;
     elementoUL += `<li>${this.texto}</li>`;
     elementoUL += `<li>${this.rC}</li>`;

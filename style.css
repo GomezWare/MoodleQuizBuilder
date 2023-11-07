@@ -1,0 +1,87 @@
+html, body {
+    min-height: 100vh;
+    min-width: 100vw;
+
+    font-size: 16px;
+}
+
+body {
+  background: linear-gradient(circle at center, #dbdada 0%, #f7f7f7 100%);
+  display: flex;
+  flex-direction: column;
+  font-size: large;
+  align-items: center;
+  font-family:  Helvetica, sans-serif;
+}
+
+.titulo {
+    background:  #0291d9;
+    padding: 0.5rem;
+    font-weight: lighter;
+    padding-right: 10rem;
+    color: rgb(255, 255, 255);
+    border-radius: 4px;
+}
+
+#divErrores h1{
+    background:  rgb(242, 140, 136);
+    border: 3px red solid;
+    border-radius: 1rem;
+    padding: 2rem;
+    color: #6a0000;
+
+}
+
+#divPreguntas div {
+
+    background-color: #4682b4;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+#divPreguntas div ul{
+padding: 0.5rem;
+width: 40rem;
+   list-style: none;
+   color: whitesmoke;
+
+}
+
+#divPreguntas div ul li{
+
+    margin-top: 1rem;
+    padding-left: 0.5rem;
+ }
+
+#divPreguntas div ul li:first-child{
+    margin-top: 0.4rem;
+    background-color: #191970;
+    width: 40rem;
+
+ }
+
+ #divPreguntas div button
+ {
+margin-left: 10rem;
+margin-right: 10rem;
+margin-bottom: 1rem;
+height: 2rem;
+
+border-color: #191970;
+background-color: #2f2ff9;
+color: white;
+ }
+
+ #divPreguntas div button:hover
+ {
+margin-left: 10rem;
+margin-right: 10rem;
+margin-bottom: 1rem;
+height: 2rem;
+
+border-color: #191970;
+background-color: #5c5cff;
+color: white;
+font-weight: bolder;
+ }
