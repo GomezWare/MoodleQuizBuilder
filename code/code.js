@@ -78,7 +78,7 @@ function generarArchivo() {
       /*Por cada pregunta se va esceibiendo el fichero con el formato especifico .gift incluyendo los caracteres escapeados y los saltos de linea*/
       arrContenido.push(`${p.texto} \n`);
       arrContenido.push(`{\n`);
-      arrContenido.push(`"=... ${p.rC}\n`);
+      arrContenido.push(`=... ${p.rC}\n`);
       arrContenido.push(`~%-25%${p.rI[0]}\n`);
       arrContenido.push(`~%-25%${p.rI[1]}\n`);
       arrContenido.push(`~%-25%${p.rI[2]}\n`);
