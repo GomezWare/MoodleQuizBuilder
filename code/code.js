@@ -204,19 +204,19 @@ function validateInputs(texto, rC, rI1, rI2, rI3) {
 function escapear(String) {
   /* Este metodo simplemente escapea el String que le pases*/
   return String.replaceAll("~", "/~")
-    .replaceAll("#", "/#")
-    .replaceAll("=", "/=")
-    .replaceAll("}", "/}")
-    .replaceAll("{", "/{")
-    .replaceAll(":", "/:");
+    .replaceAll("#", "/\#")
+    .replaceAll("=", "/\=")
+    .replaceAll("}", "/\}")
+    .replaceAll("{", "/\{")
+    .replaceAll(":", "/\:");
 }
 
 function descapear(String) {
   /* Este metodo recibe un string escapeado y lo restaura*/
   return String.replaceAll("/~", "~")
-    .replaceAll("/#", "#")
-    .replaceAll("/=", "=")
-    .replaceAll("/}", "}")
-    .replaceAll("/{", "{")
-    .replaceAll("/:", ":");
+    .replaceAll("/\#", "#")
+    .replaceAll("/\=", "=")
+    .replaceAll("/\}", "}")
+    .replaceAll("/\{", "{")
+    .replaceAll("/\:", ":");
 }
