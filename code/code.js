@@ -21,6 +21,8 @@ btnSavePreguntas.addEventListener("click", savePreguntas);
 let btnDelPreguntas = document.querySelector("#delPreguntas");
 btnDelPreguntas.addEventListener("click", delPreguntas);
 
+let btnGenArchivo = document.querySelector("#genArchivo");
+btnGenArchivo.addEventListener("click", generarArchivo);
 //////////////
 //FUNCTION //
 ////////////
@@ -50,6 +52,38 @@ function arranque() {
     localStorage.setItem("Cuestionario", "");
     //Se crea el cuestionario en objetos.js
   }
+}
+
+function generarArchivo(){
+  let arrPreguntas = localStorage.getItem("Cuestionario");
+  arrPreguntas = JSON.parse(arrPreguntas);
+
+  let arrContenido = [];
+
+  arrPreguntas.forEach(p => {
+    arrContenido.push(`${p.texto} \n`);
+    arrContenido.push(`{\n`);
+    arrContenido.push(`"=... ${p.rC}\n`);
+    arrContenido.push(`~%-25%${p.rI[0]}\n`);
+    arrContenido.push(`~%-25%${p.rI[1]}\n`);
+    arrContenido.push(`~%-25%${p.rI[2]}\n`);
+    arrContenido.push(`}\n`);
+  });
+
+  let fichero = new File(arrContenido, { type: "text/plain; charset=UTF-8" })
+  var url = window.URL.createObjectURL(fichero);
+  let divURL = document.querySelector('#urlFichero');
+
+  let flechita = `<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-big-down-lines-filled" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 8l-.117 .007a1 1 0 0 0 -.883 .993v1.999l-2.586 .001a2 2 0 0 0 -1.414 3.414l6.586 6.586a2 2 0 0 0 2.828 0l6.586 -6.586a2 2 0 0 0 .434 -2.18l-.068 -.145a2 2 0 0 0 -1.78 -1.089l-2.586 -.001v-1.999a1 1 0 0 0 -1 -1h-6z" stroke-width="0" fill="currentColor" />
+  <path d="M15 2a1 1 0 0 1 .117 1.993l-.117 .007h-6a1 1 0 0 1 -.117 -1.993l.117 -.007h6z" stroke-width="0" fill="currentColor" />
+  <path d="M15 5a1 1 0 0 1 .117 1.993l-.117 .007h-6a1 1 0 0 1 -.117 -1.993l.117 -.007h6z" stroke-width="0" fill="currentColor" />
+</svg>`
+
+  divURL.innerHTML = '<a download="preguntas.txt" href="' + url + '">Descargar fichero ('+ flechita+')</a>';
+
+  console.log(arrPreguntas);
 }
 
 function savePreguntas() {
