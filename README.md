@@ -11,10 +11,10 @@ Con esta aplicación, los educadores pueden ahorrar tiempo al generar cuestionar
 
 ## Características Principales
 
--Interfaz Intuitiva.
--Creación de Preguntas.
--Revision de Preguntas.
--Exportación GIFT.
--Vista Previa del Cuestionario.
--Compatibilidad con Moodle.
+- Interfaz Intuitiva.
+- Creación de Preguntas.
+- Revision de Preguntas.
+- Exportación GIFT.
+- Vista Previa del Cuestionario.
+- Compatibilidad con Moodle.
 
